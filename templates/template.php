@@ -17,7 +17,7 @@
         <header>Le Koalecteur</header>
     </div>
 
-    <div class="subhead">Montpellier, Occitanie - <?php echo getFormatedDate(); ?> - 10 actualites</div>
+    <div class="subhead">Montpellier, Occitanie - <?php echo getFormatedDate(); ?> - <div id="nbArticle" style="display: inline;"></div> actualites</div>
 </div>
 <div class="content">
 		
@@ -26,5 +26,8 @@
 		?>
 
 </div>
+<script>
+document.getElementById("nbArticle").innerText = "<?php echo KoalecteurSystem::$newsCount; ?>";
+</script>
 </body>
 </html>
