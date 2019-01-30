@@ -5,6 +5,13 @@
 	<div class="date"><?php echo $_NEWS["date"];?></div>
 	<hr>
 	<div class="description"><?php echo $_NEWS["desc"];?></div>
+	<?php if($_NEWS["enclosure"] != null && explode("/", $_NEWS['enclosure'][0])[0] == "image"){
+		?>
+			<figure class="figure">
+				<img class="media" src="<?php echo $_NEWS['enclosure'][1]?>" alt="">
+			</figure>
+		<?php
+	} ?>
 	</a>
 	<hr>
 </div>
