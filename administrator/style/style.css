@@ -1,0 +1,29 @@
+*
+{
+    font-family: 'Lato', sans-serif;
+}
+
+form h3
+{
+	text-align: center;
+}
+
+.fullwidth-field
+{
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	
+	font-size: 1.5em;
+	
+	width: 66%;
+}
+
+.centered-button
+{
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	
+	width: auto;
+}

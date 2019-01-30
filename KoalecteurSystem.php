@@ -1,5 +1,5 @@
 <?php
-	require_once("RSS.php");
+	require_once(getPath("RSS.php"));
 		
 	class KoalecteurSystem
 	{
@@ -13,7 +13,7 @@
 		 */
 		public static function initSystem()
 		{
-			self::$sources = explode(";", file_get_contents("sources.csv"));
+			self::$sources = explode(";", file_get_contents(getSourcesFile()));
 			
 			self::$rss_array = array();
 			foreach(self::$sources as $source)
@@ -145,7 +145,7 @@
 			for($i = 0; $i < count(self::$news_array); $i++)
 			{
 				$_NEWS = self::$news_array[$i];
-				include("templates/news.php");
+				include(getPath("templates/news.php"));
 			}
 		}
 		

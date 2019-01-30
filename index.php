@@ -1,5 +1,7 @@
 <?php
-	require_once("KoalecteurSystem.php");
+	define("ADMIN", false);
+	require_once("Core.php");
+	require_once(getPath("KoalecteurSystem.php"));
 	
-	include("templates/template.php");
+	include(getPath("templates/template.php"));
 ?>
