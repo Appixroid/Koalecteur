@@ -20,7 +20,10 @@
 
     <div class="subhead">Montpellier, Occitanie - <?php echo getFormatedDate(); ?> - <div id="nbArticle" style="display: inline;"></div> actualites</div>
 </div>
-<div id="options"><i id="optionButton" class="material-icons">keyboard_arrow_down</i></div>
+<div id="options">
+<div id="form"><?php KoalecteurSystem::includeSettings(); ?></div>
+<i id="optionButton" class="material-icons">keyboard_arrow_down</i>
+</div>
 <div class="content">
 		
 		<?php 

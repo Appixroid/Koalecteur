@@ -141,3 +141,46 @@ p{
 
 }
 
+#options {
+    margin-left: 50%;
+    transform: translate(-50%, 0);
+    text-align: center;
+    width: 50%;
+}
+
+#form {
+    margin-top: 2vh;
+    opacity: 0;
+    height: auto;
+    text-align: center;
+    width: 100%;
+}
+
+#options {
+    height: 24px;
+}
+
+#options:hover{
+    cursor: pointer;
+    height: 10vh;
+    width: 100%;
+}
+
+#options, #options:hover{
+    transition: height .2s;
+}
+
+#options:hover #form{
+    opacity: 1;
+}
+
+#options #form, #options:hover #form{
+    transition: opacity .5s .2s;
+}
+
+#optionButton {
+    position: fixed;
+    bottom: 0;
+    transform: translate(-50%, 0);
+}
+
