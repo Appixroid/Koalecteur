@@ -42,13 +42,18 @@ p{
 }
 .weatherforcastbox{
     position: relative;
-    width: 12%;
+    width: auto;
+    height: 70px;
     left: 10px;
     border: 3px double #2f2f2f;
-    padding: 10px 15px 10px 15px;
     line-height: 20px;
     display: inline-block;
     margin: 0 50px 20px -360px;
+    display: none;
+}
+
+.weatherforcastbox img {
+    filter: grayscale(100%);
 }
 
 .content {
@@ -81,7 +86,7 @@ p{
 }
 
 .article:hover {
-    background-color: rgba(0, 0, 0, .1);
+    background-color: rgb(241, 234, 213);
     cursor: pointer;
 }
 
@@ -139,4 +144,76 @@ p{
         overflow: hidden;
     }
 
+}
+
+#options {
+    margin-left: 50%;
+    transform: translate(-50%, 0);
+    text-align: center;
+    width: 50%;
+}
+
+#form {
+    margin-top: 2vh;
+    opacity: 0;
+    height: auto;
+    text-align: center;
+    width: 100%;
+}
+
+#options {
+    height: 24px;
+}
+
+#options:hover{
+    cursor: pointer;
+    height: 10vh;
+    width: 100%;
+}
+
+#options, #options:hover{
+    transition: height .2s;
+}
+
+#options:hover #form{
+    opacity: 1;
+}
+
+#options #form, #options:hover #form{<?php KoalecteurSystem::includeSettings(); ?>
+    transition: opacity .5s .2s;
+}
+
+#optionButton {
+    position: fixed;
+    bottom: 0;
+    transform: translate(-50%, 0);
+}
+
+input {
+    font-family: 'Droid Serif', serif;
+    background: none;
+    border: none;
+    border-bottom: solid 1px #2f2f2f;
+    color: #2f2f2f;
+}
+
+input[type=submit]:hover {
+    cursor: pointer;
+    background-color: #2f2f2f;
+    color: white;
+}
+
+input[type=submit], input[type=submit]:hover {
+    transition: color: .5s;
+    transition: background-color .5s;
+}
+
+select {
+    font-family: 'Droid Serif', serif;
+    background-color: rgb(241, 234, 213);
+    border: none;
+}
+
+select:hover {
+    cursor: pointer;
 }
