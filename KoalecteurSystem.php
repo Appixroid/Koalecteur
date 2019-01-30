@@ -124,8 +124,8 @@
 									 "link" => $rss->getNewsLink($i),
 									 "author" => $rss->getNewsAuthor($i),
 									 "category" => $rss->getNewsCategory($i),
-									 "comment" => $rss->getNewsComment($i)),
-									 "enclosure" => $rss->getNewsEnclosure($i));
+									 "comment" => $rss->getNewsComment($i),
+									 "enclosure" => $rss->getNewsEnclosure($i)));
 					}
 				}
 			}
