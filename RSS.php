@@ -179,5 +179,13 @@
 		{
 			return $this->getNthNews($i)->comments->__toString();
 		}
+		
+		/**
+		 * Return an array with the type and the url of the Enclosure of the i-nth News (if Exist)
+		 */
+		public function getNewsEnclosure($i)
+		{
+			return array($this->getNthNews($i)->enclosure->attributes()['type'], $this->getNthNews($i)->enclosure->attributes()['url']);
+		}
 	}
 ?>
