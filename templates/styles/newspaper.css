@@ -4,6 +4,11 @@ body{
     color: #2f2f2f;
     background-color: rgba(249, 247, 241, 1);
 }
+
+body, .article{
+    background-color: rgba(249, 247, 241, 1);
+}
+
 header{
     font-family: 'Playfair Display', serif;
     font-weight: 900;
@@ -49,11 +54,21 @@ p{
 .content {
     text-align: center;
     margin-top: 1%;
+    background:
+    linear-gradient(63deg, rgba(249, 247, 241, 1) 23%, transparent 23%) 7px 0,
+    linear-gradient(63deg, transparent 74%, rgba(249, 247, 241, 1) 78%),
+    linear-gradient(63deg, transparent 34%, rgba(249, 247, 241, 1) 38%, rgba(249, 247, 241, 1) 58%, transparent 62%),
+    rgba(47, 47, 47, .1);
+    background-size: 16px 48px;
+    margin-left: 5%;
+    margin-right: 5%;
+    padding-top: 2%;
 }   
 
 .article {
-    width: 25%;
+    width: 29%;
     display: inline-block;
+    vertical-align: middle;
     text-align: center;
     padding-left: 2%;
     padding-right: 2%;
@@ -62,6 +77,7 @@ p{
     border-right: 1px black solid;
     border-left: 1px black solid;
     top: 0;
+    margin-top: 1%;
 }
 
 .article:hover {
@@ -73,10 +89,26 @@ p{
     transition: background-color .5s;
 }
 
-.title {
+.title1 {
+    font-weight: 700;
+    font-size: 20px;
+    text-transform: uppercase;
+    padding: 10px 0 10px 0;
+}
+
+.title2 {
     font-weight: 400;
     font-style: italic;
-    font-size: 36px;
+    font-size: 30px;
+    box-sizing: border-box;
+    padding: 10px 0 10px 0;
+}
+
+.title3 {
+    font-weight: 400;
+    font-size: 25px;
+    text-transform: uppercase;
+    font-style: italic;
     box-sizing: border-box;
     padding: 10px 0 10px 0;
 }
