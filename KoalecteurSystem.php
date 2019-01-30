@@ -148,6 +148,45 @@
 				include("templates/news.php");
 			}
 		}
+		
+		/**
+		 * Generate and include the settings form
+		 */
+		public static function includeSettings()
+		{
+			$word = (isset($_GET['q']) ? $_GET['q'] : "");
+			
+			$date = "";
+			if(isset($_GET['t']) && !empty($_GET['t']))
+			{
+				$date = (new DateTime($_GET['t']))->format("Y-m-d");
+			}
+			
+			$form = '<form action="index.php" method="GET">
+						<input type="text" placeholder="Search" value="' . $word . '" name="q"/>
+						<input type="date" value="' . $date . '" name="t"/>
+						<select name="s">';
+			
+			foreach(self::$sources as $source)
+			{
+				if(strlen($source) > 4)
+				{
+					$selected = "";
+					if(isset($_GET['s']) && !empty($_GET['s']) && $source == $_GET['s'])
+					{
+						$selected = "selected";
+					}
+					
+					$form .= '<option value="' . $source . '" ' . $selected . '>' . parse_url($source, PHP_URL_HOST) . '</option>';
+				}
+			}
+
+			$form .= '	</select>
+						<input type="submit" value="Filter" /> 
+					</form>';
+					
+			echo $form;
+		}
 	}
 	
 	// Init the system
