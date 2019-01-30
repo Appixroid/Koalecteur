@@ -14,11 +14,11 @@
 	?>
 <div class="head">
     <div class="headerobjectswrapper">
-        <div class="weatherforcastbox"><span style="font-style: italic;">Meteo du prochain jour: Grand soleil</span><br><span>Vent: 7km/h;<br> Temperature: 10 Degres;<br> Humidite: 82%</span></div>
+        <div class="weatherforcastbox"><img src="https://www.meteofrance.com/integration/sim-portail/generated/integration/img/vigilance/mn.gif"></div>
         <header>Le Koalecteur</header>
     </div>
 
-    <div class="subhead">Montpellier, Occitanie - <?php echo getFormatedDate(); ?> - <div id="nbArticle" style="display: inline;"></div> actualites</div>
+    <div class="subhead"><?php echo getFormatedDate(); ?> - <div id="nbArticle" style="display: inline;"></div> actualites</div>
 </div>
 <div id="options">
 <div id="form"><?php KoalecteurSystem::includeSettings(); ?></div>
