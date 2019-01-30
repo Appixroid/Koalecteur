@@ -3,11 +3,14 @@
 		
 	class KoalecteurSystem
 	{
-		public static $sources;
-		public static $rss_array;
-		public static $news_array;
-		public static $newsCount;
+		public static $sources;// Array of URL sources
+		public static $rss_array;// Array of RSS Object
+		public static $news_array;// Array of formated news array
+		public static $newsCount;// Amount of total news
 		
+		/**
+		 * Init the static Koalecteur System
+		 */
 		public static function initSystem()
 		{
 			self::$sources = explode(";", file_get_contents("sources.csv"));
@@ -25,9 +28,12 @@
 			self::$newsCount = 0;
 		}
 		
+		/**
+		 * Filter a news item with the GET parameters
+		 */
 		private static function hasToBePush($item)
 		{
-			if(isset($_GET['q']) && !empty($_GET['q']))
+			if(isset($_GET['q']) && !empty($_GET['q']))// Key Word filter
 			{
 				$inTitle = strpos($item['title'], $_GET['q']) !== false;
 				$inDesc = strpos($item['desc'], $_GET['q']) !== false;
@@ -38,7 +44,7 @@
 				}
 			}
 			
-			if(isset($_GET['t']) && !empty($_GET['t']))
+			if(isset($_GET['t']) && !empty($_GET['t']))// Date Filter
 			{
 				if(isset($item['date']))
 				{
@@ -59,6 +65,9 @@
 			return true;
 		}
 		
+		/**
+		 * Add the news in good order
+		 */
 		private static function pushAfterDate($item)
 		{
 			if(self::hasToBePush($item))
@@ -103,7 +112,10 @@
 				}
 			}
 		}
-	
+		
+		/**
+		 * Generate all the news with the news template
+		 */
 		public static function includeNews()
 		{
 			for($j = 0; $j < count(self::$rss_array); $j++)
@@ -138,5 +150,6 @@
 		}
 	}
 	
+	// Init the system
 	KoalecteurSystem::initSystem();
 ?>
