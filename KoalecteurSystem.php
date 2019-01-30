@@ -6,7 +6,8 @@
 		public static $sources;
 		public static $rss_array;
 		public static $news_array;
-	
+		public static $newsCount;
+		
 		public static function initSystem()
 		{
 			self::$sources = explode(";", file_get_contents("sources.csv"));
@@ -21,44 +22,85 @@
 			}
 			
 			self::$news_array = array();
+			self::$newsCount = 0;
+		}
+		
+		private static function hasToBePush($item)
+		{
+			if(isset($_GET['q']) && !empty($_GET['q']))
+			{
+				$inTitle = strpos($item['title'], $_GET['q']) !== false;
+				$inDesc = strpos($item['desc'], $_GET['q']) !== false;
+				
+				if(!$inTitle && !$inDesc)
+				{
+					return false;
+				}
+			}
+			
+			if(isset($_GET['t']) && !empty($_GET['t']))
+			{
+				if(isset($item['date']))
+				{
+					$date = new DateTime($item['date']);
+					$target = new DateTime($_GET['t']);
+					
+					if($date->format("z Y") != $target->format("z Y"))
+					{
+						return false;
+					}
+				}
+				else
+				{
+					return false;
+				}
+			}
+		
+			return true;
 		}
 		
 		private static function pushAfterDate($item)
 		{
-			$i = 0;
-			$placed = false;
-			
-			if(isset($item['date']))
+			if(self::hasToBePush($item))
 			{
-				$date = new DateTime($item['date']);
+				$i = 0;
+				$placed = false;
 			
-				while($i < count(self::$news_array) && !$placed)
+				if(isset($item['date']))
 				{
-					if(isset(self::$news_array[$i]['date']))
+					$date = new DateTime($item['date']);
+			
+					while($i < count(self::$news_array) && !$placed)
 					{
-						$cmpDate = new DateTime(self::$news_array[$i]['date']);
-						$diff = $date->diff($cmpDate);
-						if($diff->invert == 1)
+						if(isset(self::$news_array[$i]['date']))
 						{
-							array_splice(self::$news_array, $i, 0, array($item));
-							$placed = true;
+							$cmpDate = new DateTime(self::$news_array[$i]['date']);
+							$diff = $date->diff($cmpDate);
+							if($diff->invert == 1)
+							{
+								array_splice(self::$news_array, $i, 0, array($item));
+								self::$newsCount++;
+								$placed = true;
+							}
+							else
+							{
+								$i++;
+							}
 						}
 						else
 						{
-							$i++;
+							array_splice(self::$news_array, $i, 0, array($item));
+							self::$newsCount++;
+							$placed = true;
 						}
 					}
-					else
-					{
-						array_splice(self::$news_array, $i, 0, array($item));
-						$placed = true;
-					}
 				}
-			}
 			
-			if(!$placed)
-			{
-				array_push(self::$news_array, $item);
+				if(!$placed)
+				{
+					array_push(self::$news_array, $item);
+					self::$newsCount++;
+				}
 			}
 		}
 	
@@ -67,18 +109,23 @@
 			for($j = 0; $j < count(self::$rss_array); $j++)
 			{
 				$rss = self::$rss_array[$j];
-				$count = $rss->getNewsCount();
+				$isset = isset($_GET['s']);
 				
-				for($i = 0; $i < $count; $i++)
+				if(($isset && !empty($_GET['s']) && $rss->getRssSourceLink() == $_GET['s']) || (!$isset))
 				{
-					self::pushAfterDate(array("id" => ($rss->getNewsUniqueId($i) != NULL ? $rss->getNewsUniqueId($i) : $i), 
-				   		         "title" => $rss->getNewsTitle($i),
-								 "date" => $rss->getNewsPublicationDate($i),
-								 "desc" => $rss->getNewsDescription($i),
-								 "link" => $rss->getNewsLink($i),
-								 "author" => $rss->getNewsAuthor($i),
-								 "category" => $rss->getNewsCategory($i),
-								 "comment" => $rss->getNewsComment($i)));
+					$count = $rss->getNewsCount();
+				
+					for($i = 0; $i < $count; $i++)
+					{
+						self::pushAfterDate(array("id" => ($rss->getNewsUniqueId($i) != NULL ? $rss->getNewsUniqueId($i) : $i), 
+					   		         "title" => $rss->getNewsTitle($i),
+									 "date" => $rss->getNewsPublicationDate($i),
+									 "desc" => $rss->getNewsDescription($i),
+									 "link" => $rss->getNewsLink($i),
+									 "author" => $rss->getNewsAuthor($i),
+									 "category" => $rss->getNewsCategory($i),
+									 "comment" => $rss->getNewsComment($i)));
+					}
 				}
 			}
 			
