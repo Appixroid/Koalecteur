@@ -53,7 +53,7 @@
 		 */
 		public function getRssPublicationDate()
 		{
-			return $this->getChannel()->pubDate->__toString();
+			return isset($this->getChannel()->pubDate) ? $this->getChannel()->pubDate->__toString() : NULL;
 		}
 		
 		/**
@@ -61,7 +61,7 @@
 		 */
 		public function getRssLastBuildDate()
 		{
-			return $this->getChannel()->lastBuildDate->__toString();
+			return isset($this->getChannel()->lastBuildDate) ? $this->getChannel()->lastBuildDate->__toString() : NULL;
 		}
 		
 		/**
@@ -69,7 +69,7 @@
 		 */
 		public function getRssImage()
 		{
-			return $this->getChannel()->image->__toString();
+			return isset($this->getChannel()->image) ? $this->getChannel()->image->__toString() : NULL;
 		}
 		
 		/**
@@ -77,7 +77,7 @@
 		 */
 		public function getRssLanguage()
 		{
-			return $this->getChannel()->language->__toString();
+			return isset($this->getChannel()->language) ? $this->getChannel()->language->__toString() : NULL;
 		}
 		
 		/**
@@ -85,7 +85,7 @@
 		 */
 		public function getRssMedia()
 		{
-			return $this->getChannel()->enclosure->__toString();
+			return isset($this->getChannel()->enclosure) ? $this->getChannel()->enclosure->__toString() : NULL;
 		}
 		
 		//////////////////
@@ -161,7 +161,7 @@
 		 */
 		public function getNewsAuthor($i)
 		{
-			return $this->getNthNews($i)->author->__toString();
+			return isset($this->getNthNews($i)->author) ? $this->getNthNews($i)->author->__toString() : NULL;
 		}
 		
 		/**
@@ -169,7 +169,7 @@
 		 */
 		public function getNewsCategory($i)
 		{
-			return $this->getNthNews($i)->category->__toString();
+			return isset($this->getNthNews($i)->category) ? $this->getNthNews($i)->category->__toString() : NULL;
 		}
 		
 		/**
@@ -177,7 +177,7 @@
 		 */
 		public function getNewsComment($i)
 		{
-			return $this->getNthNews($i)->comments->__toString();
+			return isset($this->getNthNews($i)->comments) ? $this->getNthNews($i)->comments->__toString() : NULL;
 		}
 		
 		/**
@@ -185,7 +185,7 @@
 		 */
 		public function getNewsEnclosure($i)
 		{
-			return array($this->getNthNews($i)->enclosure->attributes()['type'], $this->getNthNews($i)->enclosure->attributes()['url']);
+			return isset($this->getNthNews($i)->enclosure) ? array($this->getNthNews($i)->enclosure->attributes()['type'], $this->getNthNews($i)->enclosure->attributes()['url']) : NULL;
 		}
 	}
 ?>
