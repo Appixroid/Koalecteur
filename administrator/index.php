@@ -3,7 +3,29 @@
 	include("../Core.php");
 	include(Core::buildPath("KoalecteurSystem.php"));
 
-	if(isset($_POST['name']))
+	if(isset($_POST['login']) && isset($_POST['pwd']))
+	{
+		$user = Core::connect($_POST['login'], $_POST['pwd']);
+		if($user == null)
+		{
+			header("Location: login.html");
+		}
+		else
+		{
+			$_SESSION['user'] = $user[0];
+			header("Location: index.php?key=" . $user[1]);
+		}
+	}
+	else if(!isset($_SESSION['user']))
+	{
+		header("Location: login.html");
+	}
+	else if(isset($_GET['disconnect']))
+	{
+		session_destroy();
+		header("Location: index.php?key=" . KEY);
+	}
+	else if(isset($_POST['name']))
 	{
 		Core::setName($_POST['name']);
 		header("Location: index.php?key=" . KEY);
@@ -54,6 +76,7 @@
 			  <!-- Navigation. We hide it in small screens. -->
 			  <nav class="mdl-navigation mdl-layout--large-screen-only">
 				<a class="mdl-navigation__link" href="../index.php?key=<?php echo KEY;?>">Go to the Koalecteur</a>
+				<a class="mdl-navigation__link" href="index.php?disconnect=true&key=<?php echo KEY;?>">Log Out</a>
 			  </nav>
 			</div>
 		  </header>
@@ -63,6 +86,7 @@
 
 			<nav class="mdl-navigation">
 				<a class="mdl-navigation__link" href="../index.php?key=<?php echo KEY;?>">Go to the Koalecteur</a>
+				<a class="mdl-navigation__link" href="index.php?disconnect=true&key=<?php echo KEY;?>">Log Out</a>
 				<a class="mdl-navigation__link" href="koalecteur.news">Help</a>
 			</nav>
 		  </div>
