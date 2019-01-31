@@ -1,31 +1,25 @@
 <?php
 	define("ADMIN", true);
 	include("../Core.php");
-	include(getPath("KoalecteurSystem.php"));
+	include(Core::buildPath("KoalecteurSystem.php"));
 	
 	if(isset($_GET['modify']))
 	{
 		switch($_GET['modify'])
 		{
 			case "name":
-				if(isset($_POST['name']))
-				{
-					file_put_contents(getNameFile(), $_POST['name']);
-				}
+				
 				break;
 				
 			case "sources":
-				if(isset($_POST['sources']))
-				{
-					file_put_contents(getSourcesFile(), str_replace("\n", ';', $_POST['name']));
-				}
+				
 				break;
 		}
 		
 		header("Location: index.php?key=" . KEY);
 	}
 	
-	$sources = str_replace(";", "\n", file_get_contents(getSourcesFile()));
+	$sources = Core::getSources();
 ?>
 
 <!DOCTYPE html>
@@ -90,7 +84,7 @@
 					
 					<h3>Sources :</h3> 
 					<div class="mdl-textfield mdl-js-textfield fullwidth-field">
-						<textarea class="mdl-textfield__input" type="text" rows="10" name="sources" id="sources" ><?php echo $sources;?></textarea>
+						<textarea class="mdl-textfield__input" type="text" rows="10" name="sources" id="sources" ><?php echo implode("\n", $sources);?></textarea>
 						<label class="mdl-textfield__label" for="sources">Sources...</label>
 					  </div>
 					<input class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent centered-button" type="submit" value="Modify"/>
