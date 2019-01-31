@@ -1,2 +1,2 @@
 # Koalecteur
-Koalecteur is a simple CMS for RSS NewsPaper
+Koalecteur is a RSS NewsPaper
