@@ -3,7 +3,7 @@
     font-family: 'Lato', sans-serif;
 }
 
-form h3
+.centered
 {
 	text-align: center;
 }
@@ -13,9 +13,9 @@ form h3
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
-	
+
 	font-size: 1.5em;
-	
+
 	width: 66%;
 }
 
@@ -24,6 +24,12 @@ form h3
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
-	
+
 	width: auto;
+}
+
+.list-action
+{
+    margin-left: 16%;
+    width: 66%;
 }

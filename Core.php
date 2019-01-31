@@ -23,9 +23,15 @@
 			return $prep->fetch()[0];
 		}
 		
+		public static function setName($newName)
+		{
+			$prep = self::$pdo->prepare("UPDATE Koalecteurs SET name = :name WHERE hashkey = :hk");
+			$prep->execute(array("name" => $newName, "hk" => KEY));
+		}
+		
 		public static function getSources()
 		{
-			$prep = self::$pdo->prepare("SELECT s.url FROM Agregate a JOIN Sources s ON a.id = s.id WHERE a.hashkey = :hk");
+			$prep = self::$pdo->prepare("SELECT url FROM Agregate WHERE hashkey = :hk");
 			$prep->execute(array("hk" => KEY));
 			$sourcesAssoc = $prep->fetchAll(PDO::FETCH_ASSOC);
 			$sources = array();
@@ -36,6 +42,18 @@
 			}
 			
 			return $sources;
+		}
+		
+		public static function addSource($source)
+		{
+			$prep = self::$pdo->prepare("INSERT INTO Agregate (hashkey, url) VALUES (:hk, :source)");
+			$prep->execute(array("hk" => KEY, "source" => $source));
+		}
+		
+		public static function removeSource($source)
+		{
+			$prep = self::$pdo->prepare("DELETE FROM Agregate WHERE hashkey = :hk AND url = :source");
+			$prep->execute(array("hk" => KEY, "source" => $source));
 		}
 		
 		public static function buildPath($path)
