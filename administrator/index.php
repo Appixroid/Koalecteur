@@ -75,7 +75,7 @@
 
 			  <!-- Navigation. We hide it in small screens. -->
 			  <nav class="mdl-navigation mdl-layout--large-screen-only">
-				<a class="mdl-navigation__link" href="../index.php?key=<?php echo KEY;?>">Go to the Koalecteur</a>
+				<a class="mdl-navigation__link" target="_blank" href="../index.php?key=<?php echo KEY;?>">Go to the Koalecteur</a>
 				<a class="mdl-navigation__link" href="index.php?disconnect=true&key=<?php echo KEY;?>">Log Out</a>
 			  </nav>
 			</div>
@@ -85,7 +85,7 @@
 			<span class="mdl-layout-title"><?php echo NAME;?></span>
 
 			<nav class="mdl-navigation">
-				<a class="mdl-navigation__link" href="../index.php?key=<?php echo KEY;?>">Go to the Koalecteur</a>
+				<a class="mdl-navigation__link" target="_blank" href="../index.php?key=<?php echo KEY;?>">Go to the Koalecteur</a>
 				<a class="mdl-navigation__link" href="index.php?disconnect=true&key=<?php echo KEY;?>">Log Out</a>
 				<a class="mdl-navigation__link" href="koalecteur.news">Help</a>
 			</nav>
