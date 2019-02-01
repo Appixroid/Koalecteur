@@ -1,6 +1,7 @@
 <?php
 	session_start();
-	
+	require_once("Log.php");
+
 	define("KEY", (isset($_GET['key']) && !empty($_GET['key']) ? $_GET['key'] : "default"));
 
 	class Core
@@ -9,7 +10,7 @@
 
 		public static function connectPdo()
 		{
-			self::$pdo = new PDO("mysql:host=webinfo;dbname=parentl", "parentl", "56789");
+			self::$pdo = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PWD);
 		}
 
 		public static function getPdo()
@@ -82,7 +83,7 @@
 
 		public static function buildPath($path)
 		{
-			return (ADMIN ? "../" : "") . $path;
+			return __DIR__ . "/" . $path;
 		}
 	}
 
