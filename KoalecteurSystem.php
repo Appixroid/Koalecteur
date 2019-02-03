@@ -144,6 +144,8 @@
 				$_NEWS = self::$news_array[$i];
 				include(Core::buildPath("templates/news.php"));
 			}
+
+			self::incrementView();
 		}
 
 		/**
@@ -181,6 +183,12 @@
 					</form>';
 
 			echo $form;
+		}
+
+		public static function incrementView()
+		{
+			$prep = Core::getPdo()->prepare("UPDATE Koalecteurs SET view = view + 1 WHERE hashkey = :hk");
+			$prep->execute(array("hk" => KEY));
 		}
 	}
 
