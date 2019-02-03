@@ -1,6 +1,8 @@
 <?php
 	require_once(Core::buildPath("RSS.php"));
 
+	$_KOALECTEUR = array("key" => KEY, "name" => Core::getName(), "view" => Core::getView());
+
 	class KoalecteurSystem
 	{
 		public static $sources;// Array of URL sources

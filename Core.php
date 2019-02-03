@@ -18,6 +18,13 @@
 			return self::$pdo;
 		}
 
+		public static function getView()
+		{
+			$prep = self::$pdo->prepare("SELECT view FROM Koalecteurs WHERE hashkey = :hk");
+			$prep->execute(array("hk" => KEY));
+			return $prep->fetch()[0];
+		}
+
 		public static function getName()
 		{
 			$prep = self::$pdo->prepare("SELECT name FROM Koalecteurs WHERE hashkey = :hk");
@@ -88,6 +95,4 @@
 	}
 
 	Core::connectPdo();
-
-	define("NAME", Core::getName());
 ?>
