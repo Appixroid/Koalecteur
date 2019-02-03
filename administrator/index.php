@@ -68,7 +68,7 @@
 			<div class="mdl-layout__header-row">
 
 			  <!-- Title -->
-			  <span class="mdl-layout-title"><?php echo $_KOALECTEUR['name'];?></span>
+			  <span class="mdl-layout-title"><span class="mdl-badge" data-badge="<?php echo $_KOALECTEUR['view']?>"><?php echo $_KOALECTEUR['name'];?></span></span>
 
 			  <!-- Add spacer, to align navigation to the right -->
 			  <div class="mdl-layout-spacer"></div>
