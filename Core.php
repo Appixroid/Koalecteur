@@ -34,8 +34,11 @@
 
 		public static function setName($newName)
 		{
-			$prep = self::$pdo->prepare("UPDATE Koalecteurs SET name = :name WHERE hashkey = :hk");
-			$prep->execute(array("name" => $newName, "hk" => KEY));
+			if(ADMIN == true)
+			{
+				$prep = self::$pdo->prepare("UPDATE Koalecteurs SET name = :name WHERE hashkey = :hk");
+				$prep->execute(array("name" => $newName, "hk" => KEY));
+			}
 		}
 
 		public static function getSources()
@@ -55,14 +58,38 @@
 
 		public static function addSource($source)
 		{
-			$prep = self::$pdo->prepare("INSERT INTO Agregate (hashkey, url) VALUES (:hk, :source)");
-			$prep->execute(array("hk" => KEY, "source" => $source));
+			if(ADMIN == true)
+			{
+				$prep = self::$pdo->prepare("INSERT INTO Agregate (hashkey, url) VALUES (:hk, :source)");
+				$prep->execute(array("hk" => KEY, "source" => $source));
+			}
 		}
 
 		public static function removeSource($source)
 		{
-			$prep = self::$pdo->prepare("DELETE FROM Agregate WHERE hashkey = :hk AND url = :source");
-			$prep->execute(array("hk" => KEY, "source" => $source));
+			if(ADMIN == true)
+			{
+				$prep = self::$pdo->prepare("DELETE FROM Agregate WHERE hashkey = :hk AND url = :source");
+				$prep->execute(array("hk" => KEY, "source" => $source));
+			}
+		}
+
+		public static function deleteKoalecteur()
+		{
+			if(ADMIN == true)
+			{
+				$prep = self::$pdo->prepare("DELETE FROM Administrate WHERE hashkey = :hk");
+				$prep->execute(array("hk" => KEY));
+
+				$prep = self::$pdo->prepare("DELETE FROM Koalecteurs WHERE hashkey = :hk");
+				$prep->execute(array("hk" => KEY));
+
+				$prep = self::$pdo->prepare("DELETE FROM Agregate WHERE hashkey = :hk");
+				$prep->execute(array("hk" => KEY));
+
+				$prep = self::$pdo->prepare("DELETE FROM Users WHERE login = :login");
+				$prep->execute(array("login" => $_SESSION['user']['login']));
+			}
 		}
 
 		public static function connect($login, $pwd)
@@ -85,6 +112,19 @@
 				{
 					return null;
 				}
+			}
+		}
+
+		public static function isValidUser()
+		{
+			if(isset($_SESSION['user']))
+			{
+				$prep = self::$pdo->prepare("SELECT COUNT(*) FROM Users u JOIN Administrate a ON u.login = a.login WHERE u.login = :login AND a.hashkey = :hk");
+				return $prep->execute(array("login" => $_SESSION['user']['login'], "hk" => KEY));
+			}
+			else
+			{
+				return false;
 			}
 		}
 

@@ -16,7 +16,7 @@
 			header("Location: index.php?key=" . $user[1]);
 		}
 	}
-	else if(!isset($_SESSION['user']))
+	else if(!Core::isValidUser())
 	{
 		header("Location: login.html");
 	}
@@ -39,6 +39,11 @@
 	{
 		Core::addSource($_POST['add']);
 		header("Location: index.php?key=" . $_KOALECTEUR['key']);
+	}
+	else if(isset($_GET['delete']) && $_GET['delete'] == KEY)
+	{
+		Core::deleteKoalecteur();
+		header("Location: https://koalecteur.news");
 	}
 
 	$sources = Core::getSources();
@@ -87,7 +92,8 @@
 			<nav class="mdl-navigation">
 				<a class="mdl-navigation__link" target="_blank" href="../index.php?key=<?php echo $_KOALECTEUR['key'];?>">Go to the Koalecteur</a>
 				<a class="mdl-navigation__link" href="index.php?disconnect=true&key=<?php echo $_KOALECTEUR['key'];?>">Log Out</a>
-				<a class="mdl-navigation__link" href="koalecteur.news">Help</a>
+				<a class="mdl-navigation__link" onclick="return confirm('Etes-vous sur de vouloir supprimer le Koalecteur ?');" href="index.php?delete=<?php echo $_KOALECTEUR['key'];?>&key=<?php echo $_KOALECTEUR['key'];?>">Supprimer le Koalecteur !</a>
+				<a class="mdl-navigation__link" href="koalecteur.news/help">Help</a>
 			</nav>
 		  </div>
 
