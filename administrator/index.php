@@ -93,7 +93,7 @@
 				<a class="mdl-navigation__link" target="_blank" href="../index.php?key=<?php echo $_KOALECTEUR['key'];?>">Go to the Koalecteur</a>
 				<a class="mdl-navigation__link" href="index.php?disconnect=true&key=<?php echo $_KOALECTEUR['key'];?>">Log Out</a>
 				<a class="mdl-navigation__link" onclick="return confirm('Etes-vous sur de vouloir supprimer le Koalecteur ?');" href="index.php?delete=<?php echo $_KOALECTEUR['key'];?>&key=<?php echo $_KOALECTEUR['key'];?>">Supprimer le Koalecteur !</a>
-				<a class="mdl-navigation__link" href="koalecteur.news/help">Help</a>
+				<a class="mdl-navigation__link" href="https://koalecteur.news/help">Help</a>
 			</nav>
 		  </div>
 
