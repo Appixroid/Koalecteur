@@ -122,7 +122,7 @@
 				$rss = self::$rss_array[$j];
 				$isset = isset($_GET['s']) && !empty($_GET['s']);
 
-				if(($isset && $rss->getRssSourceLink() == $_GET['s']) || (!$isset))
+				if(($isset && parse_url($rss->getRssSourceLink(), PHP_URL_HOST) == $_GET['s']) || (!$isset))
 				{
 					$count = $rss->getNewsCount();
 
@@ -164,6 +164,7 @@
 			}
 
 			$form = '<form action="index.php" method="GET">
+						<input type="hidden" name="key" value="' . KEY . '" />
 						<input type="text" placeholder="Search" value="' . $word . '" name="q"/>
 						<input type="date" value="' . $date . '" name="t"/>
 						<select name="s">
@@ -172,12 +173,14 @@
 			foreach(self::$sources as $source)
 			{
 				$selected = "";
-				if(isset($_GET['s']) && !empty($_GET['s']) && $source == $_GET['s'])
+				$parsedSource = parse_url($source, PHP_URL_HOST);
+
+				if(isset($_GET['s']) && !empty($_GET['s']) && $parsedSource == $_GET['s'])
 				{
 					$selected = "selected";
 				}
 
-				$form .= '<option value="' . $source . '" ' . $selected . '>' . parse_url($source, PHP_URL_HOST) . '</option>';
+				$form .= '<option value="' . $parsedSource . '" ' . $selected . '>' . $parsedSource . '</option>';
 			}
 
 			$form .= '	</select>
