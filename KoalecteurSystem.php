@@ -190,13 +190,122 @@
 			echo $form;
 		}
 
+		/*
+		 * Increment the view counter
+		 */
 		public static function incrementView()
 		{
 			$prep = Core::getPdo()->prepare("UPDATE Koalecteurs SET view = view + 1 WHERE hashkey = :hk");
 			$prep->execute(array("hk" => KEY));
 		}
+
+		/*
+		 * Add the curent koalecteur to favorites
+		 */
+		public static function addToFavorite()
+		{
+			$favorites = array();
+
+			if(isset($_COOKIE['favorites']))
+			{
+				$favorites = unserialize($_COOKIE['favorites']);
+			}
+
+			$isIn = false;
+			$i = 0;
+
+			while($i < count($favorites) && !$isIn)
+			{
+				$isIn = $favorites[$i]['hashkey'] == KEY;
+
+				$i++;
+			}
+
+			if(!$isIn)
+			{
+				array_push($favorites, array("hashkey" => KEY, "name" => Core::getName()));
+			}
+
+			setCookie("favorites", serialize($favorites), time() + 2678400, "/", "koalecteur.news");
+		}
+
+		/*
+		 * Remove the curent koalecteur from favorites
+		 */
+		public static function removeFromFavorite()
+		{
+			$favorites = array();
+
+			if(isset($_COOKIE['favorites']))
+			{
+				$favorites = unserialize($_COOKIE['favorites']);
+			}
+
+			$isIn = false;
+			$i = 0;
+
+			while($i < count($favorites) && !$isIn)
+			{
+				if($favorites[$i]['hashkey'] == KEY)
+				{
+					array_splice($favorites, $i, 1);
+					$isIn = true;
+				}
+
+				$i++;
+			}
+
+			setCookie("favorites", serialize($favorites), time() + 2678400, "/", "koalecteur.news");
+		}
+
+		/*
+		 * Retrieve true if this Koalecteur is already in favorite
+		 */
+		public static function isInFavorite()
+		{
+			$favorites = array();
+
+			if(isset($_COOKIE['favorites']))
+			{
+				$favorites = unserialize($_COOKIE['favorites']);
+			}
+
+			$isIn = false;
+			$i = 0;
+
+			while($i < count($favorites) && !$isIn)
+			{
+				$isIn = $favorites[$i]['hashkey'] == KEY;
+				$i++;
+			}
+
+			return $isIn;
+		}
+
+		/*
+		 * Include the favorite link markup for that Koalecteur
+		 */
+		public static function includeFavoriteLink()
+		{
+			$isFavorite = self::isInFavorite();
+			$url = "https://reader.koalecteur.news?key=" . KEY . "&q=" . (isset($_GET['q']) ? urlencode($_GET['q']) : "") . "&s=" . (isset($_GET['s']) ? urlencode($_GET['s']) : "") . "&t=" . (isset($_GET['t']) ? urlencode($_GET['t']) : "") . "&favorite=" . ($isFavorite ? "false" : "true");
+			$txt = ($isFavorite ? "Retirer des favoris" : "Ajouter aux favoris");
+			echo '<a href="' . $url . '">' . $txt . '</a>';
+		}
 	}
 
 	// Init the system
 	KoalecteurSystem::initSystem();
+
+	if(isset($_GET['favorite']))
+	{
+		if($_GET['favorite'] == "true")
+		{
+			KoalecteurSystem::addToFavorite();
+		}
+		else if($_GET['favorite'] == "false")
+		{
+			KoalecteurSystem::removeFromFavorite();
+		}
+	}
 ?>
