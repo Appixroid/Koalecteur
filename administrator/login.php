@@ -95,17 +95,21 @@
                 }
             }
         ?>
+        <div class="error">
+            <?php echo $message;?>
+        </div
+        >
         <form action="index.php" method="POST">
             <fieldset>
                 <legend><?php echo Core::getTranslation("connexion");?></legend>
 
-                <label for="login"><?php echo Core::getTranslation("login");?> : </login>
+                <label for="login"><?php echo Core::getTranslation("login");?> : </label>
                 <br/>
                 <input type="text" name="login" placeholder="<?php echo Core::getTranslation("login");?>..." id="login"/>
 
                 <br/>
 
-                <label for="pwd"><?php echo Core::getTranslation("password");?> : </lable>
+                <label for="pwd"><?php echo Core::getTranslation("password");?> : </label>
                 <br/>
                 <input type="password" name="pwd" placeholder="*****" id="pwd" />
 
