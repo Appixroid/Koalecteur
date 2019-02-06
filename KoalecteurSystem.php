@@ -165,10 +165,10 @@
 
 			$form = '<form action="index.php" method="GET">
 						<input type="hidden" name="key" value="' . KEY . '" />
-						<input type="text" placeholder="Search" value="' . $word . '" name="q"/>
+						<input type="text" placeholder="' . Core::getTranslation("search") . '" value="' . $word . '" name="q"/>
 						<input type="date" value="' . $date . '" name="t"/>
 						<select name="s">
-							<option value="" selected>All Sources</option>';
+							<option value="" selected>' . Core::getTranslation("all_sources") . '</option>';
 
 			foreach(self::$sources as $source)
 			{
@@ -184,7 +184,7 @@
 			}
 
 			$form .= '	</select>
-						<input type="submit" value="Filter" />
+						<input type="submit" value="' . Core::getTranslation("filter") . '" />
 					</form>';
 
 			echo $form;
@@ -289,7 +289,7 @@
 		{
 			$isFavorite = self::isInFavorite();
 			$url = "https://reader.koalecteur.news?key=" . KEY . "&q=" . (isset($_GET['q']) ? urlencode($_GET['q']) : "") . "&s=" . (isset($_GET['s']) ? urlencode($_GET['s']) : "") . "&t=" . (isset($_GET['t']) ? urlencode($_GET['t']) : "") . "&favorite=" . ($isFavorite ? "false" : "true");
-			$txt = ($isFavorite ? "Retirer des favoris" : "Ajouter aux favoris");
+			$txt = ($isFavorite ? Core::getTranslation("add_favorite") : Core::getTranslation("remove_favorite"));
 			echo '<a href="' . $url . '">' . $txt . '</a>';
 		}
 	}

@@ -3,6 +3,7 @@
 	require_once("Log.php");
 
 	define("KEY", (isset($_GET['key']) && !empty($_GET['key']) ? $_GET['key'] : "default"));
+	define("LOCALE", (isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) ? explode('_', Locale::acceptFromHttp($_SERVER['HTTP_ACCEPT_LANGUAGE']))[0] : Locale::parseLocale(Locale::getDefault())['language']));
 
 	class Core
 	{
@@ -125,6 +126,22 @@
 			else
 			{
 				return false;
+			}
+		}
+
+		public static function getTranslation($label)
+		{
+			$prep = self::$pdo->prepare("SELECT " . LOCALE . " FROM Translate WHERE label = :label");
+
+			if($prep->execute(array("label" => $label, )))
+			{
+				return $prep->fetch()[0];
+			}
+			else
+			{
+				$prep = self::$pdo->prepare("SELECT en FROM Translate WHERE label = :label");
+				$exist = $prep->execute(array("label" => $label, ));
+				return ($exist ? $prep->fetch()[0] : "");
 			}
 		}
 

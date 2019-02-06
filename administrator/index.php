@@ -52,7 +52,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title><?php echo $_KOALECTEUR['name'];?> - Administrator</title>
+		<title><?php echo $_KOALECTEUR['name'];?> - <?php echo Core::getTranslation("administrator");?></title>
 
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -80,8 +80,8 @@
 
 			  <!-- Navigation. We hide it in small screens. -->
 			  <nav class="mdl-navigation mdl-layout--large-screen-only">
-				<a class="mdl-navigation__link" target="_blank" href="../index.php?key=<?php echo $_KOALECTEUR['key'];?>">Go to the Koalecteur</a>
-				<a class="mdl-navigation__link" href="index.php?disconnect=true&key=<?php echo $_KOALECTEUR['key'];?>">Log Out</a>
+				<a class="mdl-navigation__link" target="_blank" href="../index.php?key=<?php echo $_KOALECTEUR['key'];?>"><?php echo Core::getTranslation("go_koalecteur");?></a>
+				<a class="mdl-navigation__link" href="index.php?disconnect=true&key=<?php echo $_KOALECTEUR['key'];?>"><?php echo Core::getTranslation("log_out");?></a>
 			  </nav>
 			</div>
 		  </header>
@@ -90,9 +90,9 @@
 			<span class="mdl-layout-title"><?php echo $_KOALECTEUR['name'];?></span>
 
 			<nav class="mdl-navigation">
-				<a class="mdl-navigation__link" target="_blank" href="../index.php?key=<?php echo $_KOALECTEUR['key'];?>">Go to the Koalecteur</a>
-				<a class="mdl-navigation__link" href="index.php?disconnect=true&key=<?php echo $_KOALECTEUR['key'];?>">Log Out</a>
-				<a class="mdl-navigation__link" onclick="return confirm('Etes-vous sur de vouloir supprimer le Koalecteur ?');" href="index.php?delete=<?php echo $_KOALECTEUR['key'];?>&key=<?php echo $_KOALECTEUR['key'];?>">Supprimer le Koalecteur !</a>
+				<a class="mdl-navigation__link" target="_blank" href="../index.php?key=<?php echo $_KOALECTEUR['key'];?>"><?php echo Core::getTranslation("go_koalecteur");?></a>
+				<a class="mdl-navigation__link" href="index.php?disconnect=true&key=<?php echo $_KOALECTEUR['key'];?>"><?php echo Core::getTranslation("log_out");?></a>
+				<a class="mdl-navigation__link" onclick="return confirm('<?php echo Core::getTranslation("confirm_delete_koalecteur");?>');" href="index.php?delete=<?php echo $_KOALECTEUR['key'];?>&key=<?php echo $_KOALECTEUR['key'];?>"><?php echo Core::getTranslation("delete_koalecteur");?></a>
 				<a class="mdl-navigation__link" href="https://koalecteur.news/help">Help</a>
 			</nav>
 		  </div>
@@ -101,24 +101,25 @@
 			<div class="page-content">
 				<form action="index.php?modify=name&key=<?php echo $_KOALECTEUR['key'];?>" method="POST">
 
-					<h3 class="centered">Koalecteur Name :</h3>
+					<h3 class="centered"><?php echo Core::getTranslation("name_koalecteur");?> :</h3>
 					<div class="mdl-textfield mdl-js-textfield fullwidth-field">
 						<input class="mdl-textfield__input" type="text" id="name" name="name" value="<?php echo $_KOALECTEUR['name']?>" required />
-						<label class="mdl-textfield__label" for="name">Koalecteur Flux Name...</label>
+						<label class="mdl-textfield__label" for="name"><?php echo Core::getTranslation("name_koalecteur");?>...</label>
 					</div>
 
-					<input class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent centered-button" type="submit" value="Modify"/>
+					<input class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent centered-button" type="submit" value="<?php echo Core::getTranslation("modify");?>"/>
 				</form>
 
-				<h3 class="centered">Sources :</h3>
+				<h3 class="centered"><?php echo Core::getTranslation("sources");?> :</h3>
 				<form action="index.php?key=<?php echo $_KOALECTEUR['key'];?>" method="POST">
 					<input type="hidden" name="add" value="" id="new-source" />
-					<input class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent centered-button" onclick="return askNewSource();" type="submit" value="Add Source" />
+					<input class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent centered-button" onclick="return askNewSource();" type="submit" value="<?php echo Core::getTranslation("add_source");?>" />
 				</form>
 				<?php
 				foreach($sources as $source)
 				{
 					$key = $_KOALECTEUR['key'];
+					$del = Core::getTranslation("delete");
 					echo <<< END
 					<div class="list-action mdl-list">
 						<div class="mdl-list__item">
@@ -128,7 +129,7 @@
 							</span>
 							<form method="POST" action="index.php?key=$key">
 								<input type="hidden" name="remove" value="$source"/>
-								<input class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent centered-button" type="submit" value="Delete"/>
+								<input class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent centered-button" type="submit" value="$del"/>
 							</form>
 					  	</div>
 					</div>
@@ -143,7 +144,7 @@ END;
 		<script>
 			function askNewSource()
 			{
-				var source = prompt("Enter the RSS url : ");
+				var source = prompt("<?php echo Core::getTranslation("enter_rss_url");?> : ");
 				if(source != "" && source != null)
 				{
 					document.getElementById("new-source").value = source;
