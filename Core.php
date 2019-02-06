@@ -135,13 +135,20 @@
 
 			if($prep->execute(array("label" => $label, )))
 			{
-				return $prep->fetch()[0];
+				$txt = $prep->fetch()[0];
+				return ($txt != null ? $txt : $label);
 			}
 			else
 			{
 				$prep = self::$pdo->prepare("SELECT en FROM Translate WHERE label = :label");
-				$exist = $prep->execute(array("label" => $label, ));
-				return ($exist ? $prep->fetch()[0] : "");
+				if($prep->execute(array("label" => $label, )))
+				{
+					return $prep->fetch()[0];
+				}
+				else
+				{
+					return $label;
+				}
 			}
 		}
 
