@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+<?php
+    define("ADMIN", true);
+    require("../Core.php");
+?>
 <html>
     <head>
         <title>Koalecteur - Connexion</title>
@@ -75,23 +79,39 @@
     </head>
 
     <body>
+        <?php
+            $message = "";
+            if(isset($_GET['error']))
+            {
+                switch ($_GET['error'])
+                {
+                    case '1':
+                        $message = Core::getTranslation("unknow_login");;
+                        break;
+
+                    case '2':
+                        $message = Core::getTranslation("login_before");
+                        break;
+                }
+            }
+        ?>
         <form action="index.php" method="POST">
             <fieldset>
-                <legend>Connexion</legend>
+                <legend><?php echo Core::getTranslation("connexion");?></legend>
 
-                <label for="login">Login : </login>
+                <label for="login"><?php echo Core::getTranslation("login");?> : </login>
                 <br/>
-                <input type="text" name="login" placeholder="Login..." id="login"/>
+                <input type="text" name="login" placeholder="<?php echo Core::getTranslation("login");?>..." id="login"/>
 
                 <br/>
 
-                <label for="pwd">Password : </lable>
+                <label for="pwd"><?php echo Core::getTranslation("password");?> : </lable>
                 <br/>
                 <input type="password" name="pwd" placeholder="*****" id="pwd" />
 
                 <br/>
 
-                <input type="submit" value="Connexion" />
+                <input type="submit" value="<?php echo Core::getTranslation("connexion");?>" />
             </fieldset>
         </form>
     </body>

@@ -8,7 +8,7 @@
 		$user = Core::connect($_POST['login'], $_POST['pwd']);
 		if($user == null)
 		{
-			header("Location: login.html");
+			header("Location: login.php?error=1");
 		}
 		else
 		{
@@ -18,7 +18,7 @@
 	}
 	else if(!Core::isValidUser())
 	{
-		header("Location: login.html");
+		header("Location: login.php?error=2");
 	}
 	else if(isset($_GET['disconnect']))
 	{
